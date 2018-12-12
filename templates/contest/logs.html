@@ -39,12 +39,13 @@
     </nav>
     <br>
     <div class="container">
+        <h1>Contest Name</h1>
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" href="#">Rules</a>
+                <a class="nav-link" href="#">Rules</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Log Submission</a>
+                <a class="nav-link active" href="#">Log Submission</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Results</a>
@@ -52,33 +53,114 @@
         </ul>
 
         <div class="container">
-            <h1>HTML Ipsum Presents</h1>
+            <h2>Submit Your Logs</h2>
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <label for="email-input">Email address</label>
+                        <input type="email" class="form-control" id="email-input" placeholder="Ex: john@example.com" required>
+                    </div>
+                    <div class="form-group col-md-5">
+                        <label for="name-input">Name</label>
+                        <input type="text" class="form-control" id="name-input" placeholder="Ex: John Smith or New York Amateur Radio Club" required>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="claimed-input">Claimed Score</label>
+                        <input type="number" class="form-control" id="claimed-input" placeholder="Ex: 34055">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="callsign-input">Callsign used during the contest</label>
+                        <input type="text" class="form-control" id="callsign-input" placeholder="Ex: W1AW" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="op-call-input">Operator Callsigns</label>
+                        <input type="text" class="form-control" id="op-call-input" placeholder="Ex: W1AW, K1XYZ" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="station-call-input">Station Callsign</label>
+                        <input type="text" class="form-control" id="station-call-input" placeholder="Ex: W1AW">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="exchange-age-input">Exchange Sent (Age)</label>
+                        <input type="text" class="form-control" id="exchange-age-input" placeholder="Ex: 21" required>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="exchange-qth-input">Exchange Sent (QTH)</label>
+                        <input type="text" class="form-control" id="exchange-qth-input" placeholder="Ex: NY" required>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="club-input">Contest Club Name</label>
+                        <input type="text" class="form-control" id="club-input" placeholder="Ex: Midwest Contest Club">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="power-input">What is the highest power you used during the contest?</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="power-input" id="power1" value="QRP" required>
+                        <label class="form-check-label" for="power1">15W or less</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="power-input" id="power2" value="LOW" required>
+                        <label class="form-check-label" for="power2">200W or less</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="power-input" id="power3" value="HIGH" required>
+                        <label class="form-check-label" for="power3">More than 200W</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="transmitter-input">How many transmitters were used at once?</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="transmitter-input" id="transmitter1" value="ONE" required>
+                        <label class="form-check-label" for="transmitter1">One</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="transmitter-input" id="transmitter2" value="UNLIMITED" required>
+                        <label class="form-check-label" for="transmitter2">More than one</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="operators-input">How many people operated under the call used during the contest?</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="operators-input" id="operators1" value="SINGLE-OP" required>
+                        <label class="form-check-label" for="operators1">One</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="operators-input" id="operators2" value="MULTI-OP" required>
+                        <label class="form-check-label" for="operators2">More than one</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="overlay-input">Are you a New Contester or School Club Station?</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="overlay-input" id="overlay0" value="NONE" required>
+                        <label class="form-check-label" for="overlay0">No</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="overlay-input" id="overlay1" value="NEW-CONTESTER" required>
+                        <label class="form-check-label" for="overlay1">New Contester</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="overlay-input" id="overlay2" value="SCHOOL-CLUB" required>
+                        <label class="form-check-label" for="overlay2">School Club</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="upload-log-input">Upload your ADIF or Cabrillo-formatted log</label>
+                    <input type="file" class="form-control-file" id="upload-log-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="paste-log-input"><b>OR</b> paste your ADIF or Cabrillo-formatted log below:</label>
+                    <textarea class="form-control" id="paste-log-input" rows="6" required></textarea>
+                </div>
+                <!-- TODO: add exchange, club name, log entry/upload -->
 
-            <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
-
-            <h2>Header Level 2</h2>
-
-            <ol>
-               <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-               <li>Aliquam tincidunt mauris eu risus.</li>
-            </ol>
-
-            <blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p></blockquote>
-
-            <h3>Header Level 3</h3>
-
-            <ul>
-               <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-               <li>Aliquam tincidunt mauris eu risus.</li>
-            </ul>
-
-            <pre><code>
-            #header h1 a {
-              display: block;
-              width: 300px;
-              height: 80px;
-            }
-            </code></pre>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
         </div>
     </div>
 
