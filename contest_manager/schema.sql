@@ -1,0 +1,21 @@
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS contest;
+
+CREATE TABLE user (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  username TEXT UNIQUE NOT NULL,
+  password TEXT NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE contest (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  created_by INTEGER NOT NULL,
+  name TEXT NOT NULL,
+  start_date TIMESTAMP NOT NULL,
+  end_date TIMESTAMP NOT NULL,
+  log_due_date TIMESTAMP NOT NULL,
+  exchange TEXT NOT NULL,
+  rules TEXT NOT NULL,
+  FOREIGN KEY (created_by) REFERENCES user (id)
+);
