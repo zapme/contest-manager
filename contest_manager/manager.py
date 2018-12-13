@@ -10,7 +10,7 @@ from contest_manager.db import get_db
 
 bp = Blueprint('contest', __name__)
 
-@bp.route('/contest/<int:id>/rules')
+@bp.route('/<int:id>/contest')
 def rules(id):
     db = get_db()
     contest = db.execute('SELECT * FROM contest WHERE contest.id = ?', (id,)).fetchone()
@@ -20,4 +20,12 @@ def rules(id):
 sdfjklkt test rules
 '''
     return render_template('contest/rules.html', contest=contest, rules=rules)
+
+@bp.route('/<int:id>/submit', methods=('GET', 'POST'))
+def submit_log(id):
+    pass
+
+@bp.route('/<int:id>/results')
+def results(id):
+    pass
 
