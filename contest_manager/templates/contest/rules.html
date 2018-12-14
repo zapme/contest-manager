@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
+{% block title %}Rules | {{ contest['name'] }}{% endblock %}
+
 {% block header %}
-<h1>{% block title %}{{ contest['name'] }}{% endblock %}</h1>
+<h1>{{ contest['name'] }}</h1>
 <ul class="nav nav-tabs">
     <li class="nav-item">
         <a class="nav-link active" href="{{ url_for('contest.rules', id=contest['id']) }}">Rules</a>

@@ -22,7 +22,7 @@ def submit_log(id):
     contest = db.execute('SELECT * FROM contest WHERE contest.id = ?', (id,)).fetchone()
 
     if request.method == 'POST':
-        pass
+        print(request.form)
 
     return render_template('contest/submit.html', contest=contest)
 
