@@ -46,9 +46,9 @@ INSERT INTO contest (
     DATETIME('2018-01-03 02:59'),
     DATETIME('2018-01-07 03:00'),
     'Name',
-    '# skfsjkdfkd
+    '## skfsjkdfkd
 
-    **AJKLSDFKLASLDASDKKSk** ja *ksdfjksdfjs* kfkk
-    sdfjklkt test rules'
+**AJKLSDFKLASLDASDKKSk** ja *ksdfjksdfjs* kfkk
+sdfjklkt test rules'
 );
 
