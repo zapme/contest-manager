@@ -1,8 +1,38 @@
 {% extends 'base.html' %}
+{% block title %}Home{% endblock %}
 
 {% block content %}
-{% for contest in contests %}
+    <div id="intro">
+        <p>Pleasant greetings to you OM. Welcome to the WY4RC Contest Manager.</p>
+        <p>On this page you will find amateur radio contests that are currently made available on this contest manager,
+            whether ongoing, past, or in the future. Where available, rules, results and log submissions can be found
+            in the individual pages of contests, which you may elect to examine at your mouse click's pleasure.</p>
+        <p>This program is highly experimental. If you experience any difficulties or have any questions, please write
+            to <a href="mailto:dev@yarc.world">the developers</a>.</p>
+        <p>From all of the YARC Contest Manager developers, we wish you great fun on the airwaves.</p>
+    </div>
 
-{% endfor %}
-{% end block %}
+    <table class="table" id="contests">
+        <thead>
+        <tr>
+            <th>Contest</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Log Due</th>
+            <th>Exchange</th>
+        <tr>
+        </thead>
+        <tbody>
+        {% for contest in contests %}
+            <tr>
+                <td><a href="/{{ contest.id }}/contest">{{ contest.name }}</a></td>
+                <td>{{ contest.start_date.strftime('%Y-%m-%d %H%MZ') }}</td>
+                <td>{{ contest.end_date.strftime('%Y-%m-%d %H%MZ') }}</td>
+                <td>{{ contest.log_due_date.strftime('%Y-%m-%d %H%MZ') }}</td>
+                <td>{{ contest.exchange }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
 
