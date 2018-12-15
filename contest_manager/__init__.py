@@ -4,6 +4,9 @@ import os
 from flask import Flask
 from flaskext.markdown import Markdown
 
+from contest_manager import db, manager
+
+
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
@@ -31,11 +34,9 @@ def create_app(test_config=None):
         return 'Hello, World!'
 
     # register the database commands
-    from contest_manager import db
     db.init_app(app)
 
     # apply the blueprints to the app
-    from contest_manager import manager
     app.register_blueprint(manager.bp)
     # app.register_blueprint(blog.bp)
 
@@ -49,4 +50,3 @@ def create_app(test_config=None):
     Markdown(app)
 
     return app
-
