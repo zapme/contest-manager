@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block title %}Submit | {{ contest['name'] }}{% endblock %}
+
+{% block header %}
+<h1>{{ contest['name'] }}</h1>
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('contest.rules', id=contest['id']) }}">Rules</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{{ url_for('contest.submit_log', id=contest['id']) }}">Log Submission</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('contest.results', id=contest['id']) }}">Results</a>
+    </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+
+<h1>Submit Your Log</h1>
+<form method="post">
+    <div class="form-row">
+        <div class="form-group col-md-5">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" name="email" id="email" placeholder="Ex: john@example.com" required>
+        </div>
+        <div class="form-group col-md-5">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" id="name" placeholder="Ex: John Smith or New York Amateur Radio Club" required>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="claimed">Claimed Score</label>
+            <input type="number" class="form-control" name="claimed" id="claimed" placeholder="Ex: 34055">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="callsign">Callsign used during the contest</label>
+            <input type="text" class="form-control" name="callsign" id="callsign" placeholder="Ex: W1AW" required>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="op-call">Operator Callsigns</label>
+            <input type="text" class="form-control" name="op-call" id="op-call" placeholder="Ex: W1AW, K1XYZ" required>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="stn-call">Station Callsign</label>
+            <input type="text" class="form-control" name="stn-call" id="stn-call" placeholder="Ex: W1AW">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="exch-age">Exchange Sent (Age)</label>
+            <input type="text" class="form-control" name="exch-age" id="exch-age" placeholder="Ex: 21" required>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="exch-qth">Exchange Sent (QTH)</label>
+            <input type="text" class="form-control" name="exch-qth" id="exch-qth" placeholder="Ex: NY" required>
+        </div>
+        <div class="form-group col-md-8">
+            <label for="club">Contest Club Name</label>
+            <input type="text" class="form-control" name="club" id="club" placeholder="Ex: Midwest Contest Club">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="power">What is the highest power you used during the contest?</label>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="power" id="power1" value="QRP" required>
+            <label class="form-check-label" for="power1">15W or less</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="power" id="power2" value="LOW" required>
+            <label class="form-check-label" for="power2">200W or less</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="power" id="power3" value="HIGH" required>
+            <label class="form-check-label" for="power3">More than 200W</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="transmitter">How many transmitters were used at once?</label>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="transmitter" id="transmitter1" value="ONE" required>
+            <label class="form-check-label" for="transmitter1">One</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="transmitter" id="transmitter2" value="UNLIMITED" required>
+            <label class="form-check-label" for="transmitter2">More than one</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="operators">How many people operated under the call used during the contest?</label>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="operators" id="operators1" value="SINGLE-OP" required>
+            <label class="form-check-label" for="operators1">One</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="operators" id="operators2" value="MULTI-OP" required>
+            <label class="form-check-label" for="operators2">More than one</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="overlay">Are you a New Contester or School Club Station?</label>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="overlay" id="overlay0" value="NONE" required>
+            <label class="form-check-label" for="overlay0">No</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="overlay" id="overlay1" value="NEW-CONTESTER" required>
+            <label class="form-check-label" for="overlay1">New Contester</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="overlay" id="overlay2" value="SCHOOL-CLUB" required>
+            <label class="form-check-label" for="overlay2">School Club</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="upload-log">Upload your ADIF or Cabrillo-formatted log</label>
+        <input type="file" class="form-control-file" name="upload-log" id="upload-log" required>
+    </div>
+    <div class="form-group">
+        <label for="paste-log"><b>OR</b> paste your ADIF or Cabrillo-formatted log below:</label>
+        <textarea class="form-control" name="paste-log" id="paste-log" rows="6" required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% endblock %}
+
