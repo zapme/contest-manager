@@ -63,8 +63,8 @@ INSERT INTO `contest` VALUES (
 **AJKLSDFKLASLDASDKKSk** ja *ksdfjksdfjs* kfkk
 sdfjklkt test rules');
 
-INSERT INTO `contest` VALUES (2,1,'Overdue QSO Party','1984-01-01 00:00:00','2000-12-31 00:00:00','2000-12-31 01:00:00','Totalitarian Government Type','');
-INSERT INTO `contest` VALUES (3,2,'CQ WW RTTY WPX Contest','2019-02-09 00:00:00','2019-02-10 23:59:00','2038-01-01 23:59:00','RST + Serial No','');
+--INSERT INTO `contest` VALUES (2,1,'Overdue QSO Party','1984-01-01 00:00:00','2000-12-31 00:00:00','2000-12-31 01:00:00','Totalitarian Government Type','');
+--INSERT INTO `contest` VALUES (3,2,'CQ WW RTTY WPX Contest','2019-02-09 00:00:00','2019-02-10 23:59:00','2038-01-01 23:59:00','RST + Serial No','');
 
 CREATE TABLE IF NOT EXISTS `uploads` (
   `id`  INTEGER PRIMARY KEY AUTOINCREMENT,
