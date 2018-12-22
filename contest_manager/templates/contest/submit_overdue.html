@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Log Overdue | {{ contest['name'] }}{% endblock %}
+
+{% block header %}
+    <h1>{{ contest['name'] }}</h1>
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('contest.rules', id=contest['id']) }}">Rules</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="{{ url_for('contest.submit_log', id=contest['id']) }}">Log Submission</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('contest.results', id=contest['id']) }}">Results</a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <h1>Log Submission Closed</h1>
+    <p>Online log submissions for {{ contest['name'] }} are currently closed at this time, as they were
+        due at {{contest['log_due_date'] }}.</p>
+    <p>If you are sure that you are submitting logs for the correct contest, please make arrangements with the
+        contest organizer directly for submitting late logs.</p>
+{% endblock %}
+
