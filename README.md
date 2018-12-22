@@ -28,7 +28,7 @@ but the ultimate goal is a general-purpose contest manager..
 
 ## License
 
-This program is released under the [MIT License](LICENSE).
+This program is released under the [BSD 4-Clause License](LICENSE).
 
 ## Contributors
 
