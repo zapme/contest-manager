@@ -1,3 +1,4 @@
+
 # !/usr/bin/env python3
 import re
 import os
@@ -11,13 +12,14 @@ from cabrillo.parser import parse_log_text
 from cabrillo.data import VALID_CATEGORIES_MAP
 from cabrillo.errors import CabrilloParserException
 
+import json
+
 # from contest_manager.auth import login_required
 from contest_manager.db import get_db
 
 CALLSIGN_REGEX = r'^\d?[a-zA-Z]{1,2}\d{1,4}[a-zA-Z]{1,4}$'
 
 bp = Blueprint('contest', __name__)
-
 
 @bp.route('/')
 def index():
@@ -31,12 +33,10 @@ def index():
 @bp.route('/<int:id>/contest')
 def rules(id):
     db = get_db()
-    contest = db.execute('SELECT * FROM contest WHERE contest.id = ?',
-                         (id,)).fetchone()
-    make_contest_404(contest)
-
-    return render_template('contest/rules.html', contest=contest)
-
+    contest = db.execute('SELECT * FROM contest WHERE contest.id = ?', (id,)).fetchone()
+    categories = json.loads(contest['categories'])
+    return render_template('contest/rules.html', contest=contest,
+            categories=categories)
 
 @bp.route('/<int:id>/submit', methods=('GET', 'POST'))
 def submit_log(id):
@@ -147,7 +147,7 @@ def make_contest_404(contest):
 def is_call(callsign):
     return re.match(CALLSIGN_REGEX, callsign) is not None
 
-
 @bp.route('/<int:id>/results')
 def results(id):
     pass
+

@@ -19,13 +19,49 @@
 
 {% block content %}
 
-<h1>Contest Period</h1>
-{{ contest['start_date'].strftime('%Y-%m-%d %H:%M') }} UTC to {{ contest['end_date'].strftime('%Y-%m-%d %H:%M') }} UTC.
+<h2>Contest Period</h2>
 
-<h1>Log Submission Deadline</h1>
-{{ contest['log_due_date'].strftime('%Y-%m-%d %H:%M') }} UTC.
+{{ contest['start_date'].strftime('%Y-%m-%d %H%M') }}Z to {{ contest['end_date'].strftime('%Y-%m-%d %H%M') }}Z.
 
-<h1>Rules</h1>
+<h2>Log Submission Deadline</h2>
+
+{{ contest['log_due_date'].strftime('%Y-%m-%d %H%M') }}Z.
+
+<h2>Categories</h2>
+
+<ul>
+    {% for cat in categories['categories'] %}
+        <li>{{ cat }}</li>
+    {% endfor %}
+</ul>
+<ul>
+    {% for item,desc in categories['descriptions'].items() %}
+        <li><b>{{ item }}:</b> {{ desc }}</li>
+    {% endfor %}
+</ul>
+
+
+<h2>Scoring</h2>
+
+{{ contest['score_formula'] }}
+
+<h2>Exchange</h2>
+
+{{ contest['exchange'] }}
+
+<h2>Modes</h2>
+
+{{ contest['modes'] }}
+
+<h2>Bands</h2>
+
+{{ contest['bands'] }}
+
+<h2>Multipliers</h2>
+
+{{ contest['multipliers'] }}
+
+<h2>Other Rules</h2>
 
 {{ contest['rules']|markdown }}
 
