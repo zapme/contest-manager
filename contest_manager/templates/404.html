@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Error 404: Page Not Found{% endblock %}
+
+{% block header %}
+<h1>There's no signal on this frequency...</h1>
+<h3 class="text-muted">HTTP Error 404</h3>
+{% endblock %}
+
+{% block content %}
+<p>The page you requested wasn't found. <a href="javascript:history.back()">Go back</a> or <a href="{{ url_for('index') }}">Go to the homepage</a>.
+{% endblock %}
+
