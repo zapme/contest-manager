@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Submitted Logs | {{ contest['name'] }}{% endblock %}
+
+{% block header %}
+<h1>{{ contest['name'] }}</h1>
+
+{% include 'contest/contest_nav.html' %}
+{% endblock %}
+
+{% block content %}
+{% if uploads != None and uploads|length > 0 %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Time</th>
+            <th>Callsign</th>
+            <th>Operators</th>
+            <th>Club Name</th>
+            <th>Category</th>
+            <th>Overlay</th>
+        <tr>
+        </thead>
+        <tbody>
+        {% for entry in uploads %}
+            <tr>
+                <td>{{ entry.time.strftime('%Y-%m-%d %H%MZ') }}</td>
+                <td>{{ entry.callsign }}</td>
+                <td>{{ entry.operator_callsigns }}</td>
+                <td>{{ entry.club_name }}</td>
+                <td>
+                    {{ entry.category_assisted }}
+                    {{ entry.category_power }}
+                    {{ entry.category_band }}
+                    {{ entry.category_mode }}
+                    {{ entry.category_operator }}
+                    {{ entry.category_transmitter }}
+                    {{ entry.category_station }}
+                    {{ entry.category_time }}
+                </td>
+                <td>{{ entry.category_overlay }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <h4>No submissions yet!</h4>
+{% endif %}
+{% endblock %}
+

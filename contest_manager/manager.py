@@ -29,7 +29,6 @@ def index():
 
     return render_template('index.html', contests=contests)
 
-
 @bp.route('/<int:id>/contest')
 def rules(id):
     db = get_db()
@@ -39,7 +38,6 @@ def rules(id):
     categories = json.loads(contest['categories'])
     return render_template('contest/rules.html', contest=contest,
                            categories=categories)
-
 
 @bp.route('/<int:id>/submit', methods=('GET', 'POST'))
 def submit_log(id):
@@ -141,19 +139,28 @@ def submit_log(id):
     return render_template('contest/submit.html', contest=contest,
                            categories=VALID_CATEGORIES_MAP)
 
-
 def make_contest_404(contest):
     if contest is None:
         abort(404)
-
 
 def is_call(callsign):
     return re.match(CALLSIGN_REGEX, callsign) is not None
 
 @bp.route('/<int:id>/submitted')
 def submitted_logs(id):
-    pass
+    db = get_db()
+    contest = db.execute('SELECT * FROM contest WHERE contest.id = ?',
+                         (id,)).fetchone()
+    make_contest_404(contest)
+    uploads = db.execute('SELECT * FROM uploads WHERE uploads.contest_id = ?',
+                         (id,)).fetchall()
+    return render_template('contest/submitted.html', contest=contest, uploads=uploads)
 
 @bp.route('/<int:id>/results')
 def results(id):
-    pass
+    db = get_db()
+    contest = db.execute('SELECT * FROM contest WHERE contest.id = ?',
+                         (id,)).fetchone()
+    make_contest_404(contest)
+    return render_template('contest/results.html', contest=contest)
+
