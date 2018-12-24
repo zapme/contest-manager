@@ -162,5 +162,9 @@ def results(id):
     contest = db.execute('SELECT * FROM contest WHERE contest.id = ?',
                          (id,)).fetchone()
     make_contest_404(contest)
-    return render_template('contest/results.html', contest=contest)
+    results = db.execute('SELECT * FROM results WHERE results.contest_id = ?',
+                         (id,)).fetchall()
+
+    return render_template('contest/results.html', contest=contest,
+            results=results, utcnow=datetime.utcnow())
 

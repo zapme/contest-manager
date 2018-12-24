@@ -13,10 +13,12 @@
     <table class="table">
         <thead>
         <tr>
-            <th>Time</th>
+            <th>#</th>
+            <th>Date Received</th>
             <th>Callsign</th>
             <th>Operators</th>
-            <th>Club Name</th>
+            <th>Station</th>
+            <th>Contest Club</th>
             <th>Category</th>
             <th>Overlay</th>
         <tr>
@@ -24,9 +26,11 @@
         <tbody>
         {% for entry in uploads %}
             <tr>
+                <td>{{ loop.index }}</td>
                 <td>{{ entry.time.strftime('%Y-%m-%d %H%MZ') }}</td>
                 <td>{{ entry.callsign }}</td>
                 <td>{{ entry.operator_callsigns }}</td>
+                <td>{{ entry.station_callsign }}</td>
                 <td>{{ entry.club_name }}</td>
                 <td>
                     {{ entry.category_assisted }}

@@ -1,92 +1,84 @@
-<!-- {% extends base.html %} -->
+{% extends 'base.html' %}
 
-<!-- {% block header %} -->
-<!-- {% end block %} -->
+{% block title %}Submitted Logs | {{ contest['name'] }}{% endblock %}
 
-<!-- {% block content %} -->
-<!-- {% end block %} -->
+{% block header %}
+<h1>{{ contest['name'] }}</h1>
 
-<!doctype html>
-<html>
-<head>
-    <title>{% block title %}{% end block %} - WY4RC Contest Manager</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url_for('index') }}">Contest Manager</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav my-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('admin.login') }}">Admin</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <br>
-    <div class="container">
-        <h1>Contest Name</h1>
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link" href="#">Rules</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Log Submission</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="#">Results</a>
-            </li>
-        </ul>
+{% include 'contest/contest_nav.html' %}
+{% endblock %}
 
-        <div class="container">
-            <h1>HTML Ipsum Presents</h1>
+{% block content %}
+<!-- If there is a date to release results AND it's in the past AND there are results, show tables -->
+{% if contest['results_date']
+        and contest['results_date'] > utcnow
+        and results != None
+        and results|length > 0 %}
+{% for cat in results|groupby('category') %}
+    <h3>{{ cat.grouper }}</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Place</th>
+            <th>Callsign</th>
+            <th>Name</th>
+            <th>Operators</th>
+            <th>Station</th>
+            <th>Contest Club</th>
+            <th>Score</th>
+        <tr>
+        </thead>
+        <tbody>
+        <!-- TODO: need results schema (use uploads table?) -->
+        {% for entry in cat.list|sort(attribute='score', reverse=True) %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ entry.callsign }}</td>
+                <td>{{ entry.name }}</td>
+                <td>{{ entry.operator_callsigns }}</td>
+                <td>{{ entry.station_callsign }}</td>
+                <td>{{ entry.club_name }}</td>
+                <td>{{ entry.score }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endfor %}
 
-            <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
-
-            <h2>Header Level 2</h2>
-
-            <ol>
-               <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-               <li>Aliquam tincidunt mauris eu risus.</li>
-            </ol>
-
-            <blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p></blockquote>
-
-            <h3>Header Level 3</h3>
-
-            <ul>
-               <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-               <li>Aliquam tincidunt mauris eu risus.</li>
-            </ul>
-
-            <pre><code>
-            #header h1 a {
-              display: block;
-              width: 300px;
-              height: 80px;
-            }
-            </code></pre>
-        </div>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-</body>
-</html>
-
+<h2>Overlays</h2>
+{% for cat in results|groupby('category_overlay') %}
+    <h3>{{ cat.grouper }}</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Place</th>
+            <th>Callsign</th>
+            <th>Name</th>
+            <th>Operators</th>
+            <th>Station</th>
+            <th>Contest Club</th>
+            <th>Score</th>
+        <tr>
+        </thead>
+        <tbody>
+        <!-- TODO: need results schema (use uploads table?) -->
+        {% for entry in cat.list|sort(attribute='score', reverse=True) %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ entry.callsign }}</td>
+                <td>{{ entry.name }}</td>
+                <td>{{ entry.operator_callsigns }}</td>
+                <td>{{ entry.station_callsign }}</td>
+                <td>{{ entry.club_name }}</td>
+                <td>{{ entry.score }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endfor %}
+{% else %}
+    <h4>Results are not available yet!</h4>
+    <h5 class="text-muted">Check back soon.</h5>
+{% endif %}
+{% endblock %}
 

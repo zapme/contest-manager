@@ -28,6 +28,8 @@ CREATE TABLE IF NOT EXISTS `contest` (
     `end_date` TIMESTAMP NOT NULL,
     -- date and time logs are due
     `log_due_date` TIMESTAMP NOT NULL,
+    -- date and time results are to be released
+    `results_date` TIMESTAMP,
     -- categories for the contest, as json string
     `categories` TEXT NOT NULL,
     -- formula for scoring, as text
@@ -51,7 +53,8 @@ INSERT INTO `contest` VALUES (
     'YARC QSO Party',
     '2018-12-01 14:00:00',
     '2018-12-01 02:59:00',
-    '2020-01-01 00:00:00',
+    '2018-12-02 00:00:00',
+    '2018-12-24 00:00:00',
     '{ "categories": [ "Single-Op QRP", "Single-Op Low", "Single-Op High", "Multi-Single Low", "Multi-Single High", "Multi-Multi Low", "Multi-Multi High" ], "descriptions": { "Single-Op": "One Operator, One Transmitter", "Multi-Single": "Multiple Operators, One Transmitter", "Multi-Multi": "Multiple Operators, Multiple Transmitters", "QRP": "< 15W", "Low": "< 200W", "High": "< 1500W" } }',
     '$$\text{Score} = N_{mults} \left( 3 N_{Phone QSOs} + 2 N_{CW QSOs} + 1 N_{Digital QSOs} \right)$$',
     'Age and QTH',
