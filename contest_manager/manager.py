@@ -34,6 +34,7 @@ def index():
 def rules(id):
     db = get_db()
     contest = db.execute('SELECT * FROM contest WHERE contest.id = ?', (id,)).fetchone()
+    make_contest_404(contest)
     categories = json.loads(contest['categories'])
     return render_template('contest/rules.html', contest=contest,
             categories=categories)
@@ -138,11 +139,9 @@ def submit_log(id):
     return render_template('contest/submit.html', contest=contest,
                            categories=VALID_CATEGORIES_MAP)
 
-
 def make_contest_404(contest):
     if contest is None:
         abort(404)
-
 
 def is_call(callsign):
     return re.match(CALLSIGN_REGEX, callsign) is not None

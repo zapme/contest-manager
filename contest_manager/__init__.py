@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import os
-from flask import Flask
+from flask import Flask, render_template
 from flaskext.markdown import Markdown
 
 from contest_manager import db, manager
@@ -28,10 +28,11 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # a simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
+
+    ##### 404 Error Handler
+    @app.errorhandler(404)
+    def not_found(e):
+        return render_template('404.html')
 
     # register the database commands
     db.init_app(app)
