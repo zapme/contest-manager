@@ -1,0 +1,14 @@
+<ul class="nav nav-pills">
+    <li class="nav-item">
+        <a class="nav-link {% if request.path == url_for('contest.rules', id=contest['id']) %}active{% endif %}" href="{{ url_for('contest.rules', id=contest['id']) }}">Rules</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {% if request.path == url_for('contest.submit_log', id=contest['id']) %}active{% endif %}" href="{{ url_for('contest.submit_log', id=contest['id']) }}">Log Submission</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {% if request.path == url_for('contest.submitted_logs', id=contest['id']) %}active{% endif %}" href="{{ url_for('contest.submitted_logs', id=contest['id']) }}">Submitted Logs</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {% if request.path == url_for('contest.results', id=contest['id']) %}active{% endif %}" href="{{ url_for('contest.results', id=contest['id']) }}">Results</a>
+    </li>
+</ul>

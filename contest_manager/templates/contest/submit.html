@@ -3,18 +3,9 @@
 {% block title %}Submit | {{ contest['name'] }}{% endblock %}
 
 {% block header %}
-    <h1>{{ contest['name'] }}</h1>
-    <ul class="nav nav-pills">
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('contest.rules', id=contest['id']) }}">Rules</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" href="{{ url_for('contest.submit_log', id=contest['id']) }}">Log Submission</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('contest.results', id=contest['id']) }}">Results</a>
-        </li>
-    </ul>
+<h1>{{ contest['name'] }}</h1>
+
+{% include 'contest/contest_nav.html' %}
 {% endblock %}
 
 {% block content %}

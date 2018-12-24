@@ -150,6 +150,9 @@ def make_contest_404(contest):
 def is_call(callsign):
     return re.match(CALLSIGN_REGEX, callsign) is not None
 
+@bp.route('/<int:id>/submitted')
+def submitted_logs(id):
+    pass
 
 @bp.route('/<int:id>/results')
 def results(id):
