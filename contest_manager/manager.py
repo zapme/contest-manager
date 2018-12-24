@@ -1,4 +1,3 @@
-
 # !/usr/bin/env python3
 import re
 import os
@@ -21,6 +20,7 @@ CALLSIGN_REGEX = r'^\d?[a-zA-Z]{1,2}\d{1,4}[a-zA-Z]{1,4}$'
 
 bp = Blueprint('contest', __name__)
 
+
 @bp.route('/')
 def index():
     db = get_db()
@@ -33,11 +33,13 @@ def index():
 @bp.route('/<int:id>/contest')
 def rules(id):
     db = get_db()
-    contest = db.execute('SELECT * FROM contest WHERE contest.id = ?', (id,)).fetchone()
+    contest = db.execute('SELECT * FROM contest WHERE contest.id = ?',
+                         (id,)).fetchone()
     make_contest_404(contest)
     categories = json.loads(contest['categories'])
     return render_template('contest/rules.html', contest=contest,
-            categories=categories)
+                           categories=categories)
+
 
 @bp.route('/<int:id>/submit', methods=('GET', 'POST'))
 def submit_log(id):
@@ -47,7 +49,7 @@ def submit_log(id):
     make_contest_404(contest)
 
     # Preemptively reject overdue submissions.
-    if datetime.now() > contest['log_due_date']:
+    if datetime.utcnow() > contest['log_due_date']:
         return render_template('contest/submit_overdue.html', contest=contest)
 
     if request.method == 'POST':
@@ -103,7 +105,7 @@ def submit_log(id):
                                                               category]))
 
         if not has_error:
-            time = datetime.now()
+            time = datetime.utcnow()
             filename = secure_filename(
                 '{}-{}.log'.format(request.form['callsign'].upper(),
                                    time.strftime('%Y%m%d%H%M%S%f')))
@@ -139,14 +141,16 @@ def submit_log(id):
     return render_template('contest/submit.html', contest=contest,
                            categories=VALID_CATEGORIES_MAP)
 
+
 def make_contest_404(contest):
     if contest is None:
         abort(404)
 
+
 def is_call(callsign):
     return re.match(CALLSIGN_REGEX, callsign) is not None
+
 
 @bp.route('/<int:id>/results')
 def results(id):
     pass
-
