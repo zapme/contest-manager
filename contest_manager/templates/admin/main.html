@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Admin{% endblock %}
+
+{% block header %}
+    <h1 class="float-md-left">Admin</h1>
+    <button type="button" class="btn btn-success float-md-right">Create Contest</button>
+{% endblock %}
+
+{% block content %}
+    <table class="table" id="contests">
+        <thead>
+        <tr>
+            <th>Contest</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Log Due</th>
+            <th>Exchange</th>
+            <th>Actions</th>
+        <tr>
+        </thead>
+        <tbody>
+        {% for contest in contests %}
+            <tr>
+                <td>{{ contest.name }}</td>
+                <td>{{ contest.start_date.strftime('%Y-%m-%d %H%MZ') }}</td>
+                <td>{{ contest.end_date.strftime('%Y-%m-%d %H%MZ') }}</td>
+                <td>{{ contest.log_due_date.strftime('%Y-%m-%d %H%MZ') }}</td>
+                <td>{{ contest.exchange }}</td>
+                <td>
+                    <button type="button" class="btn btn-primary">Edit</button>
+                    <button type="button" class="btn btn-success">Score</button>
+                    <button type="button" class="btn btn-warning">Duplicate</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+

@@ -4,7 +4,7 @@ import os
 from flask import Flask, render_template
 from flaskext.markdown import Markdown
 
-from contest_manager import db, manager
+from contest_manager import db, manager, admin
 
 
 def create_app(test_config=None):
@@ -39,7 +39,7 @@ def create_app(test_config=None):
 
     # apply the blueprints to the app
     app.register_blueprint(manager.bp)
-    # app.register_blueprint(blog.bp)
+    app.register_blueprint(admin.bp)
 
     # make url_for('index') == url_for('blog.index')
     # in another app, you might define a separate main index here with
