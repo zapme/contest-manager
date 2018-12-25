@@ -116,16 +116,16 @@ def submit_log(id):
             db.execute(
                 'INSERT INTO uploads (contest_id, time, filename, email, name,'
                 'claimed_score, callsign, operator_callsigns,'
-                'station_callsign, club_name, category_assisted,'
+                'station_callsign, club_name, soapbox, category_assisted,'
                 'category_power, category_band, category_mode,'
                 'category_operator, category_transmitter, category_station,'
                 'category_time, category_overlay) VALUES'
-                '(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                '(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                 (id, time.strftime('%Y-%m-%d %H:%M:%S'), filename,
                  form['email'], form['name'], form['claimed'],
                  form['callsign'].upper(), form['op-call'].upper(),
                  form['stn-call'].upper(), form['club'],
-                 form['category_assisted'],
+                 form['soapbox'], form['category_assisted'],
                  form['category_power'], form['category_band'],
                  form['category_mode'], form['category_operator'],
                  form['category_transmitter'], form['category_station'],

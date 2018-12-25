@@ -78,6 +78,7 @@ CREATE TABLE IF NOT EXISTS `uploads` (
   `operator_callsigns`  TEXT NOT NULL,
   `station_callsign`  TEXT NOT NULL,
   `club_name`  TEXT,
+  `soapbox`  TEXT,
   `category_assisted`  TEXT NOT NULL,
   `category_power`  TEXT NOT NULL,
   `category_band`  TEXT NOT NULL,

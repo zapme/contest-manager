@@ -68,10 +68,18 @@
                 <input type="text" class="form-control" name="club" id="club" placeholder="Ex: Midwest Contest Club">
             </div>
         </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="soapbox">Soapbox</label>
+                <textarea class="form-control" name="soapbox" id="soapbox" rows="4"></textarea>
+            </div>
+        </div>
         <h2>Entry Categories</h2>
+
+        <h4 class="text-muted">Check the contest rules for exact definitions of each category.</h4>
         <div class="form-row">
             <div class="form-group col-md-4">
-                <label for="category_assisted">Assisted:</label>
+                <label for="category_assisted">Did this station use any spotting assistance during the contest?</label>
                 <select class="form-control" name="category_assisted" id="category_assisted">
                     {% for value in categories['category_assisted'] %}
                         <option>{{ value }}</option>
@@ -79,7 +87,7 @@
                 </select>
             </div>
             <div class="form-group col-md-4">
-                <label for="category_power">Power:</label>
+                <label for="category_power">What was the maximum power used by this station during the contest?</label>
                 <select class="form-control" name="category_power" id="category_power">
                     {% for value in categories['category_power'] %}
                         <option>{{ value }}</option>
@@ -87,7 +95,7 @@
                 </select>
             </div>
             <div class="form-group col-md-4">
-                <label for="category_band">Band:</label>
+                <label for="category_band">What bands did this station use during the contest?</label>
                 <select class="form-control" name="category_band" id="category_band">
                     {% for value in categories['category_band'] %}
                         <option>{{ value }}</option>
@@ -97,7 +105,7 @@
         </div>
         <div class="form-row">
             <div class="form-group col-md-4">
-                <label for="category_mode">Modes Used:</label>
+                <label for="category_mode">What modes did this station use during the contest?</label>
                 <select class="form-control" name="category_mode" id="category_mode">
                     {% for value in categories['category_mode'] %}
                         <option>{{ value }}</option>
@@ -105,7 +113,7 @@
                 </select>
             </div>
             <div class="form-group col-md-4">
-                <label for="category_operator">Operator:</label>
+                <label for="category_operator">How many operators were there at this station?</label>
                 <select class="form-control" name="category_operator" id="category_operator">
                     {% for value in categories['category_operator'] %}
                         <option>{{ value }}</option>
@@ -113,7 +121,7 @@
                 </select>
             </div>
             <div class="form-group col-md-4">
-                <label for="category_transmitter">Transmitter:</label>
+                <label for="category_transmitter">How many transmitters were there at this station?</label>
                 <select class="form-control" name="category_transmitter" id="category_transmitter">
                     {% for value in categories['category_transmitter'] %}
                         <option>{{ value }}</option>
@@ -123,7 +131,7 @@
         </div>
         <div class="form-row">
             <div class="form-group col-md-4">
-                <label for="category_station">Station Type:</label>
+                <label for="category_station">What type of station was this station?</label>
                 <select class="form-control" name="category_station" id="category_station">
                     {% for value in categories['category_station'] %}
                         <option>{{ value }}</option>
@@ -131,7 +139,7 @@
                 </select>
             </div>
             <div class="form-group col-md-4">
-                <label for="category_time">Time Operated:</label>
+                <label for="category_time">Up to how many hours did this station operate during the contest?</label>
                 <select class="form-control" name="category_time" id="category_time">
                     {% for value in categories['category_time'] %}
                         <option>{{ value }}</option>
@@ -139,7 +147,7 @@
                 </select>
             </div>
             <div class="form-group col-md-4">
-                <label for="category_overlay">Overlay:</label>
+                <label for="category_overlay">What overlay category is this station eligible for?</label>
                 <select class="form-control" name="category_overlay" id="category_overlay">
                     <option value="" selected>None</option>
                     {% for value in categories['category_overlay'] %}
@@ -148,7 +156,7 @@
                 </select>
             </div>
         </div>
-        <h2>File Upload</h2>
+        <h2>Log Upload</h2>
         <div class="form-group">
             <label for="log">Upload your Cabrillo-formatted log file (.log)</label>
             <input type="file" accept=".log" class="form-control-file" name="log" id="log" required>
