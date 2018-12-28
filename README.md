@@ -33,5 +33,5 @@ This program is released under the [BSD 4-Clause License](LICENSE).
 ## Contributors
 
 - Galen KB6EE (@galengold)
-- busbr (@wubcrow)
+- busbr (@thxo)
 
