@@ -5,6 +5,7 @@ from datetime import datetime
 
 from flask import Blueprint, render_template, request, current_app, abort, \
     flash, redirect
+from flask_mail import Mail, Message
 from werkzeug.utils import secure_filename
 from itsdangerous import TimestampSigner
 from cabrillo.parser import parse_log_text
@@ -14,6 +15,7 @@ from cabrillo.errors import CabrilloParserException
 import json
 
 # from contest_manager.auth import login_required
+from contest_manager import emails
 from contest_manager.contests import ALL_CONTESTS
 from contest_manager.db import get_db
 
@@ -56,6 +58,8 @@ def submit_log(id):
     if request.method == 'POST':
         form = request.form
         has_error = False
+        mail = Mail(current_app)
+        form = request.form
 
         if 'log' not in request.files:
             flash('Log file not found.')
@@ -141,6 +145,35 @@ def submit_log(id):
             request.files['log'].save(
                 os.path.join(current_app.config['LOGS_DIR'], filename))
 
+            # Sign a receipt number for the user.
+            s = TimestampSigner(current_app.config['SIGN_SECRET'])
+            receipt = s.sign(str(filename))
+
+            # Send emails.
+            with mail.connect() as conn:
+                conn.send(
+                    Message(body=emails.OK_TEMPLATE.format(
+                        name=contest['name'],
+                        receipt=receipt.decode(),
+                        time=time),
+                        recipients=[form['email'].strip()],
+                        subject='Contest Log Received')
+                )
+                # Check for prior submission and notify if so.
+                prior = db.execute(
+                    'SELECT * FROM uploads WHERE contest_id = ? '
+                    'AND callsign = ? ORDER BY time DESC;',
+                    (id, form['callsign'].upper())).fetchone()
+                if prior:
+                    conn.send(
+                        Message(body=emails.DUP_TEMPLATE.format(
+                            name=contest['name'],
+                            receipt=receipt.decode(),
+                            time=time),
+                            recipients=[prior['email']],
+                            subject='Your contest submission was replaced.')
+                    )
+
             db.execute(
                 'INSERT INTO uploads (contest_id, time, filename, email, name,'
                 'claimed_score, callsign, operator_callsigns,'
@@ -150,7 +183,7 @@ def submit_log(id):
                 'category_time, category_overlay) VALUES'
                 '(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                 (id, time.strftime('%Y-%m-%d %H:%M:%S'), filename,
-                 form['email'], form['name'], form['claimed'],
+                 form['email'].strip(), form['name'], form['claimed'],
                  form['callsign'].upper(), form['op-call'].upper(),
                  form['stn-call'].upper(), form['club'],
                  form['soapbox'], form['category_assisted'],
@@ -160,9 +193,6 @@ def submit_log(id):
                  form['category_time'], form['category_overlay']))
             db.commit()
 
-            # Sign a receipt number for the user.
-            s = TimestampSigner(current_app.config['SIGN_SECRET'])
-            receipt = s.sign(str(filename))
             return render_template('contest/submit_ok.html', contest=contest,
                                    receipt=receipt.decode())
 

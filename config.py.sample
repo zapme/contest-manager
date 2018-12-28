@@ -1,2 +1,8 @@
 LOGS_DIR = '/tmp/logs'
 SIGN_SECRET = 'almost-heaven-west-virginia'
+MAIL_SERVER = 'smtp.fabrikam.com'
+MAIL_PORT = 587
+MAIL_USE_TLS = True
+MAIL_USERNAME = 'v-yarc@fabrikam.com'
+MAIL_PASSWORD = 'Under_the_br1dge_d0wnt0wn'
+MAIL_DEFAULT_SENDER = 'v-yarc@fabrikam.com'
