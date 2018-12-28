@@ -14,6 +14,7 @@ from cabrillo.errors import CabrilloParserException
 import json
 
 # from contest_manager.auth import login_required
+from contest_manager.contests import ALL_CONTESTS
 from contest_manager.db import get_db
 
 CALLSIGN_REGEX = r'^\d?[a-zA-Z]{1,2}\d{1,4}[a-zA-Z]{1,4}$'
@@ -53,6 +54,7 @@ def submit_log(id):
         return render_template('contest/submit_overdue.html', contest=contest)
 
     if request.method == 'POST':
+        form = request.form
         has_error = False
 
         if 'log' not in request.files:
@@ -69,12 +71,14 @@ def submit_log(id):
         except CabrilloParserException as e:
             has_error = True
             flash('Improperly formatted Cabrillo: {}'.format(str(e)))
+            return redirect(request.url)
         except UnicodeDecodeError:
             has_error = True
             flash(
                 'Improperly encoded file: If you have non-ASCII charac'
                 'ters (eg Des Vœux Road Central, 皇后大道東), ensure '
                 'the file is saved as UTF-8.')
+            return redirect(request.url)
         f.seek(0)  # Recover file position
 
         # Verify callsigns.
@@ -104,6 +108,31 @@ def submit_log(id):
                                                           VALID_CATEGORIES_MAP[
                                                               category]))
 
+        # Contest-specific verification
+        contest_class = ALL_CONTESTS[contest['alias']][0]
+        submission = contest_class(callsign=form['callsign'].upper(),
+                                   name=form['name'],
+                                   claimed_score=form['claimed'],
+                                   operator_callsigns=form['op-call'].upper(),
+                                   station_callsign=form['stn-call'],
+                                   club_name=form['club'],
+                                   category_assisted=form['category_assisted'],
+                                   category_power=form['category_power'],
+                                   category_band=form['category_band'],
+                                   category_mode=form['category_mode'],
+                                   category_operator=form['category_operator'],
+                                   category_transmitter=form[
+                                       'category_transmitter'],
+                                   category_station=form['category_station'],
+                                   category_time=form['category_time'],
+                                   category_overlay=form['category_overlay'],
+                                   log=cab
+                                   )
+        err_message = submission.verify()
+        if err_message:
+            has_error = True
+            flash(err_message)
+
         if not has_error:
             time = datetime.utcnow()
             filename = secure_filename(
@@ -112,7 +141,6 @@ def submit_log(id):
             request.files['log'].save(
                 os.path.join(current_app.config['LOGS_DIR'], filename))
 
-            form = request.form
             db.execute(
                 'INSERT INTO uploads (contest_id, time, filename, email, name,'
                 'claimed_score, callsign, operator_callsigns,'

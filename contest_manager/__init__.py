@@ -28,7 +28,6 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-
     ##### 404 Error Handler
     @app.errorhandler(404)
     def not_found(e):
