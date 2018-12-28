@@ -7,9 +7,9 @@ but the ultimate goal is a general-purpose contest manager..
 
 ## Features and Roadmap
 
-- [ ] Display a list of contests for the user
-- [ ] Display rules for each contest
-- [ ] Log submission form
+- [x] Display a list of contests for the user
+- [x] Display rules for each contest
+- [x] Log submission form
 - [ ] Score logs
 - [ ] Display results
 - [ ] Admin panel
